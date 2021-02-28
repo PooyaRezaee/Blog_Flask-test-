@@ -5,6 +5,5 @@ admin = Blueprint('admin',__name__,url_prefix='/admin/')
 
 
 
-@admin.route("/")
-def admin_index():
-    return "welcom to panel admin"
+# =========== VIEWS ===========
+from .views import admin_index

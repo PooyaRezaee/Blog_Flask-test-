@@ -9,12 +9,10 @@ app.config.from_object(Development)
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
+# =========== VIEWS ===========
+from views import Home
 
-@app.route('/')
-def Home():
-    return "This is Home Page ..."
-
-
+# =========== BluePrints ===========
 from mod_users import user
 from mod_admin import admin
 
