@@ -5,7 +5,7 @@ from flask import session
 def admin_index():
     return "welcom to panel admin"
 
-@admin.route("/")
+@admin.route("/login/")
 def login():
     session['name'] = "pooya"
 
