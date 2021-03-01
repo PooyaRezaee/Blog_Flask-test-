@@ -1,0 +1,57 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(22,27,34);
+    margin: 0;
+    padding: 0;
+}
+H1{
+    text-align: center;
+}
+.countiner{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+h1{
+    color: white;
+}
+
+form{
+    margin-top: 13%;
+    padding: 20px;
+    /* background-image: linear-gradient(130deg,rgb(219, 219, 219),rgb(126, 126, 126)); */
+    background-color:rgb(11,45,91);
+    border-radius: 15px;
+}
+
+input{
+    font-size: 20px;
+    width: 100%;
+    padding: 12px;
+    margin: 5px;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+}
+
+input.login_form{
+    background-color: rgb(255, 255, 255);
+}
+
+input[type="submit"]{
+    background-image: linear-gradient(to left,rgb(90, 223, 150),rgb(8, 194, 116));
+    transition: border 0.1s,font-size 0.5s;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    font-size: 16px;
+}
+input[type="submit"]:hover{
+}
+input[type="submit"]:active{
+    background-image: linear-gradient(to right,rgb(90, 223, 150),rgb(8, 194, 116));
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
