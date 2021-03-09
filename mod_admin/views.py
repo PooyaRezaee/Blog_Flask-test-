@@ -1,14 +1,31 @@
 from . import admin
-from flask import session,render_template,request
+from flask import session,render_template,request,abort
 from mod_users.forms import Loginform
+from mod_users.models import User
 
 @admin.route("/")
 def admin_index():
     return "welcom to panel admin"
 
-@admin.route("/login/")
+@admin.route("/login/",methods=["GET","POST"])
 def login():
     # session['name'] = "pooya"
     login_form = Loginform(request.form)
+
+    if request.method == "POST":
+        if not login_form.validate_on_submit():
+            abort(400)
+        user = User.query.filter(User.Email.ilike(f"{login_form.email.data}")).first()
+        if not user:
+            return "Email is Wrong"
+        if not user.check_password(login_form.password.data):
+            return "Passowrd is Wrong"
+            
+        session["email"] = user.Email
+        session["id"] = user.Id
+        return "Congratolation , You are logged"
+    
+    if session.get('email') is not None:
+        return "Are Logged from before !!!"
 
     return render_template("admin/index.html",login_form=login_form)
