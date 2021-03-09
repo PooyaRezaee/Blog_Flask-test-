@@ -28,4 +28,4 @@ def login():
     if session.get('email') is not None:
         return "Are Logged from before !!!"
 
-    return render_template("admin/index.html",login_form=login_form)
+    return render_template("admin/login.html",login_form=login_form)
