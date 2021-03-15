@@ -5,7 +5,10 @@ from mod_users.models import User
 
 @admin.route("/")
 def admin_index():
-    return "welcom to panel admin"
+    if session.get('rol') == "admin":
+        return "welcom to panel admin"
+    else:
+        abort(404)
 
 @admin.route("/login/",methods=["GET","POST"])
 def login():
@@ -22,12 +25,15 @@ def login():
         if not user.check_password(login_form.password.data):
             flash("Passowrd is Wrong",category="error")
             return render_template("admin/login.html",login_form=login_form)
-            
+        if not user.is_admin():
+            flash("You not admin",category="error")
+            return render_template("admin/login.html",login_form=login_form)
         session["email"] = user.Email
         session["id"] = user.Id
+        session["rol"] = user.rol
         return "Congratolation , You are logged"
     
-    if session.get('email') is not None:
+    if session.get('rol') == "admin":
         return "Are Logged from before !!!"
 
     return render_template("admin/login.html",login_form=login_form)

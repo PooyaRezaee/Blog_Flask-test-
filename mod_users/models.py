@@ -18,3 +18,9 @@ class User(db.Model):
 
     def check_password(self,password):
         return check_password_hash(self.password,password)
+
+    def is_admin(self):
+        if self.rol == "admin":
+            return True
+        if self.rol == "user":
+            return False
