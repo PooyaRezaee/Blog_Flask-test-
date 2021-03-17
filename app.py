@@ -15,6 +15,8 @@ from views import Home
 # =========== BluePrints ===========
 from mod_users import user
 from mod_admin import admin
+from mod_blog import blog
 
 app.register_blueprint(admin)
 app.register_blueprint(user)
+app.register_blueprint(blog)
