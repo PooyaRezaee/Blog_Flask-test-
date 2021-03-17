@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Register User</title>
+{% endblock %}
+
+{% block content %}
+<h1>Register</h1>
+<div>
+    <form action="{{ url_for('users.Register') }}" method="POST">
+        <h2>Please Enter Your Information for register in site as User</h2>
+
+        {% with messages = get_flashed_messages(True) %}
+        {% if messages %}
+        <div class="row">
+            {% for msg in messages %}
+            <div class="card {{ msg[0] }}">
+                <div class="section">
+                    <p >{{ msg[1] }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {{ register_form.hidden_tag() }} <br>
+
+        {{ register_form.full_name }} <br>
+        {% if register_form.full_name.errors %}
+        <ul>
+            {% for error in register_form.full_name.errors %}
+            <li>
+                {{ error }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {{ register_form.age }} <br>
+        {% if register_form.age.errors %}
+        <ul>
+            {% for error in register_form.age.errors %}
+            <li>
+                {{ error }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {{ register_form.email }} <br>
+        {% if register_form.email.errors %}
+        <ul>
+            {% for error in register_form.email.errors %}
+            <li>
+                {{ error }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {{ register_form.password }} <br>
+        {% if register_form.password.errors %}
+        <ul>
+            {% for error in register_form.password.errors %}
+            <li>
+                {{ error }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {{ register_form.password_confirm }} <br>
+        {% if register_form.password_confirm.errors %}
+        <ul>
+            {% for error in register_form.password_confirm.errors %}
+            <li>
+                {{ error }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <input type="submit" value="Login">
+    </form>
+</div>
+{% endblock %}

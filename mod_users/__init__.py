@@ -7,3 +7,4 @@ from .models import User
 
 # =========== VIEWS ===========
 from .views import users_index
+from .views import Register
