@@ -1,0 +1,24 @@
+{% extends 'admin/base.html' %}
+
+{% block head %}
+<title>Dashbord admin</title>
+{% endblock %}
+
+{% block page_content %}
+
+{% with messages = get_flashed_messages(True) %}
+{% if messages %}
+<div class="row">
+    {% for msg in messages %}
+    <div class="card">
+        <div class="section">
+            <p >{{ msg[1] }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<h2>Welcom To Admin Page {{ name }}</h2>
+{% endblock %}

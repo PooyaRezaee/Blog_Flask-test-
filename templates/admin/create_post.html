@@ -1,0 +1,34 @@
+{% extends 'admin/base.html' %}
+
+{% block head %}
+<title>New Post</title>
+{% endblock %}
+
+{% block page_content %}
+<h2>Write on Filed for create new post</h2>
+<div>
+
+    {% with messages = get_flashed_messages(True) %}
+    {% if messages %}
+    <div class="row">
+        {% for msg in messages %}
+        <div class="card">
+            <div class="section">
+                <p >{{ msg[1] }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('admin.new_post') }}" method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.title }} <br>
+        {{ form.summary }} <br>
+        {{ form.content }} <br>
+        {{ form.slug }} <br>
+        <input type="submit" value="Post">
+    </form>
+</div>
+{% endblock %}
