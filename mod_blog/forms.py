@@ -14,3 +14,7 @@ class Categoryform(FlaskForm):
     name = TextField(validators=[DataRequired()],render_kw={"placeholder":"name"})
     description = TextAreaField(render_kw={"placeholder":"description"})
     slug = TextField(validators=[DataRequired()],render_kw={"placeholder":"slug"})
+
+
+class searchform(FlaskForm):
+    search = TextField(validators=[DataRequired()])

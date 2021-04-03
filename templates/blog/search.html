@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block head %}
+<title>Search for {{ search_query }}</title>
+{% endblock %}
+
+{% block page_content %}
+<div>
+    <h2>Result for '{{ search_query }}'</h2>
+    
+    {% for post in posts %}
+    <div style="border: 1px solid black;width: 90%;margin: auto;">
+    <h2 style="border-bottom: 1px solid black;"> <a href="{{ url_for('blog.single_post',slug=post.slug) }}"> {{ post.title }} </a></h2> <br>
+    
+    <p> {{ post.summary or post.content | truncate(64,true,'...') }} </p> <br>
+    </div><br>
+    {% endfor %}
+</div>
+{% endblock %}
