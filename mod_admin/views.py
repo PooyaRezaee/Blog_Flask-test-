@@ -54,6 +54,10 @@ def log_out():
 def new_post():
     form = Postform(request.form)
 
+    categories = Category.query.order_by(Category.id.desc()).all()
+
+    form.categories.choices = [(category.id , category.name) for category in categories]
+
     if request.method == "POST":
         if not form.validate_on_submit():
             flash("Write on all Filed")
@@ -64,6 +68,7 @@ def new_post():
         new_post.summary = form.summary.data
         new_post.content = form.content.data
         new_post.slug = form.slug.data
+        new_post.categories = [(Category.query.get(category_id)) for category_id in form.categories.data]
 
         try:
             db.session.add(new_post)
@@ -107,6 +112,12 @@ def modify_post(post_id):
     post = Post.query.get_or_404(post_id)
     form = Postform(obj=post)
 
+    categories = Category.query.order_by(Category.id.desc()).all()
+    form.categories.choices = [(category.id , category.name) for category in categories]
+    
+    if request.method != "POST":
+        form.categories.data = [category.id for category in post.categories]
+
     if request.method == "POST":
         if not form.validate_on_submit():
             flash("Form not Validate")
@@ -115,6 +126,7 @@ def modify_post(post_id):
         post.summary = form.summary.data
         post.content = form.content.data
         post.slug = form.slug.data
+        post.categories = [(Category.query.get(category_id)) for category_id in form.categories.data]
 
         try:
             db.session.commit()
