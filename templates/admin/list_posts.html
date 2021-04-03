@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block head %}
+<title>list posts</title>
+{% endblock %}
+
+{% block page_content %}
+
+<table >
+    <caption>List Posts In site</caption>
+    <thead>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Action</th>
+    </thead>
+    {% for post in posts %}
+        <tr>
+            <td>{{ post.id}}</td>
+            <td>{{ post.title}}</td>
+            <td>
+                <a href="{{ url_for('admin.delate_post' , post_id=post.id) }}" class="button">Delate</a>
+                <a href="{{ url_for('admin.modify_post' , post_id=post.id) }}" class="button">Modify</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

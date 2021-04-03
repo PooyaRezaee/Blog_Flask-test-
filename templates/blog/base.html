@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<title>Blog</title>
-{% endblock %}
+
 
 {% block content %}
-    <div>
-        <ul>
-            <li><a href="{{ url_for('blog.index') }}">Blog</a></li>
-            <li><a href="{{ url_for('users.Register') }}">Register</a></li>
-        </ul>
-    </div>
+    <header>
+        <a class="logo" href="{{ url_for('blog.index') }}">Blog</a>
+        <a class="button" href="{{ url_for('users.Register') }}">Register</a>
+    </header>
     {% block page_content %}
     {% endblock %}
 {% endblock %}

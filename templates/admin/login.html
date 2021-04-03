@@ -12,19 +12,16 @@
             <H1>Login To Admin Page</H1>
 
             {% with messages = get_flashed_messages(True) %}
-                {% if messages %}
+            {% if messages %}
                 <div class="row">
                     
                     {% for message in messages %}
-                    <div class="card {{message[0]}}">
-                    <div class="section">
-                    <p>{{ message[1] }}</p>
-                    </div>
-                    </div>
+                        <span class="toast">{{ message[1] }}</span>
                     {% endfor %}
                 </div>
-                {% endif %}
-            {% endwith %}
+            {% endif %}
+        {% endwith %}
+        
 
             <!-- <input type="email"  class="login_form" placeholder="Email"> <br>
             <input type="password"  class="login_form" placeholder="Password"> <br>

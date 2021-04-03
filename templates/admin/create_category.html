@@ -1,0 +1,18 @@
+{% extends 'admin/base.html' %}
+
+{% block head %}
+<title>New Post</title>
+{% endblock %}
+
+{% block page_content %}
+<h2>Create a New Category</h2>
+<div>
+    <form action="{{ url_for('admin.new_category') }}" method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.name }} <br>
+        {{ form.slug }} <br>
+        {{ form.description }} <br>
+        <input type="submit" value="Add">
+    </form>
+</div>
+{% endblock %}

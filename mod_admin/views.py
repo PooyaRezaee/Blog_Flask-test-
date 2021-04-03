@@ -2,8 +2,8 @@ from . import admin
 from flask import session,render_template,request,abort,flash,redirect,url_for
 from mod_users.forms import Loginform
 from mod_users.models import User
-from mod_blog.forms import Postform
-from mod_blog.models import Post
+from mod_blog.forms import Postform,Categoryform
+from mod_blog.models import Post,Category
 from .utils import only_admin_see
 from app import db
 
@@ -56,7 +56,8 @@ def new_post():
 
     if request.method == "POST":
         if not form.validate_on_submit():
-            return "s"
+            flash("Write on all Filed")
+            return render_template('admin/create_post.html',form=form)
         
         new_post = Post()
         new_post.title = form.title.data
@@ -75,3 +76,120 @@ def new_post():
 
     elif request.method == "GET":
         return render_template('admin/create_post.html',form=form)
+
+@admin.route('/users/')
+@only_admin_see
+def list_users():
+    users = User.query.order_by(User.Id.desc()).all()
+
+    return render_template('admin/list_users.html',users=users)
+
+@admin.route('/posts/')
+@only_admin_see
+def list_posts():
+    posts = Post.query.order_by(Post.id.desc()).all()
+
+    return render_template('admin/list_posts.html',posts=posts)
+
+@admin.route('/posts/delete/<int:post_id>/')
+@only_admin_see
+def delate_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+
+    flash('Post delated')
+    return redirect(url_for('admin.list_posts'))
+
+@admin.route('/posts/modify/<int:post_id>/',methods=["GET","POST"])
+@only_admin_see
+def modify_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    form = Postform(obj=post)
+
+    if request.method == "POST":
+        if not form.validate_on_submit():
+            flash("Form not Validate")
+
+        post.title = form.title.data
+        post.summary = form.summary.data
+        post.content = form.content.data
+        post.slug = form.slug.data
+
+        try:
+            db.session.commit()
+            flash("post Modifided")
+            return redirect(url_for('admin.index'))
+    
+        except:
+            flash("has a error","error")
+    
+    return render_template('admin/modify_post.html',form=form ,post=post)
+
+@admin.route('/categories/new/',methods=["GET","POST"])
+@only_admin_see
+def new_category():
+    form = Categoryform(request.form)
+
+    if request.method == "POST":
+        if not form.validate_on_submit():
+            flash("Write on all Filed")
+            return render_template('admin/create_category.html',form=form)
+        
+        new_category = Category()
+        new_category.name = form.name.data
+        new_category.slug = form.slug.data
+        new_category.description = form.description.data
+
+        try:
+            db.session.add(new_category)
+            db.session.commit()
+            flash("Created Category")
+            return redirect(url_for('admin.index'))
+        except:
+            flash("has a error","error")
+            return render_template('admin/create_category.html',form=form)
+    
+    elif request.method == "GET":
+        return render_template('admin/create_category.html',form=form)
+
+@admin.route('/categories/')
+@only_admin_see
+def list_categories():
+    categories = Category.query.order_by(Category.id.desc()).all()
+
+    return render_template('admin/list_categories.html',categories=categories)
+
+@admin.route('/categories/delete/<int:category_id>/')
+@only_admin_see
+def delate_category(category_id):
+    category = Category.query.get_or_404(category_id)
+    db.session.delete(category)
+    db.session.commit()
+
+    flash('category delated')
+    return redirect(url_for('admin.list_categories'))
+
+@admin.route('/posts/categories/<int:category_id>/',methods=["GET","POST"])
+@only_admin_see
+def modify_category(category_id):
+    category = Category.query.get_or_404(category_id)
+    form = Categoryform(obj=category)
+
+    if request.method == "POST":
+        if not form.validate_on_submit():
+            flash("Form not Validate")
+
+        category.name = form.name.data
+        category.description = form.description.data
+        category.slug = form.slug.data
+
+        try:
+            db.session.commit()
+            flash("category Modifided")
+            return redirect(url_for('admin.list_categories'))
+    
+        except:
+            flash("has a error","error")
+    
+    return render_template('admin/modify_category.html',form=form ,category=category)
