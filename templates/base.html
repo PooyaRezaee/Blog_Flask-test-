@@ -7,7 +7,7 @@
     {% block head %}
     {% endblock %}
 </head>
-<body>
+<body style="background-size: cover; background-attachment: fixed; background-image: url( {{ url_for('static' , filename='Images/Background.jpg') }} );">
     {% block content %}
     {% endblock %}
 </body>
