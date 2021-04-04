@@ -6,10 +6,12 @@ from .forms import searchform
 
 @blog.route('/')
 def index():
+    page = request.args.get('q',1,int)
     search_form = searchform()
-    posts = Post.query.all()
+    posts = Post.query.paginate(page,5).items
+    num_pages = Post.query.paginate(page,5).pages
 
-    return render_template('blog/index.html',posts=posts,search_form=search_form)
+    return render_template('blog/index.html',posts=posts,search_form=search_form,num_pages=num_pages)
 
 
 @blog.route('/<string:slug>')

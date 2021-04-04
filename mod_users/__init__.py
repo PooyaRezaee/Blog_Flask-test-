@@ -6,5 +6,4 @@ user = Blueprint('users',__name__,url_prefix='/users/')
 from .models import User
 
 # =========== VIEWS ===========
-from .views import users_index
-from .views import Register
+from .views import *

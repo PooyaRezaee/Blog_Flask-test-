@@ -98,6 +98,7 @@ def list_users():
 @only_admin_see
 def list_posts():
     posts = Post.query.order_by(Post.id.desc()).all()
+    # print(posts.count)
 
     return render_template('admin/list_posts.html',posts=posts)
 

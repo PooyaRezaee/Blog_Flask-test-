@@ -1,4 +1,4 @@
-from sqlalchemy import Column,Integer,String
+from sqlalchemy import Column,Integer,String,Boolean
 from app import db
 from werkzeug.security import generate_password_hash,check_password_hash
 
@@ -11,6 +11,7 @@ class User(db.Model):
     Email = db.Column(String(128),nullable=False,unique=True)
     password = db.Column(String(1280),nullable=False)
     rol = db.Column(String(128),nullable=False)
+    active = db.Column(Boolean(),nullable=False,default=False)
 
 
     def set_password(self,password):
