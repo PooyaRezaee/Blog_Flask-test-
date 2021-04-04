@@ -16,7 +16,9 @@ from views import Home
 from mod_users import user
 from mod_admin import admin
 from mod_blog import blog
+from mod_uploads import uploads
 
 app.register_blueprint(admin)
 app.register_blueprint(user)
 app.register_blueprint(blog)
+app.register_blueprint(uploads)
